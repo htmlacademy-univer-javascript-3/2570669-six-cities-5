@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './components/App';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const Setting = {
+  PlacesCount: 312,
+}as const;
 
-root.render(
+const root = document.getElementById('root');
+
+ReactDOM.createRoot(root as HTMLElement).render(
   <React.StrictMode>
-    <h1>Hello, World!</h1>
+    <App placesCount={Setting.PlacesCount}/>
   </React.StrictMode>
 );
