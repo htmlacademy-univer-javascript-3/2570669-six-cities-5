@@ -224,3 +224,4 @@ function Favorites(){
   </div>
   
 }
+export default Favorites;

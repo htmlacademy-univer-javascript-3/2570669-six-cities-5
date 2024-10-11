@@ -58,3 +58,5 @@ function Login(){
     </main>
   </div>  
 }
+
+export default Login;

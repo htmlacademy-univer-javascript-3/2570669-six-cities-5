@@ -462,3 +462,5 @@ function Offer(){
     </main>
   </div>  
 }
+
+export default Offer;

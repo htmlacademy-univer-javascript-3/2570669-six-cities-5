@@ -65,3 +65,5 @@ function FavoritesEmpty(){
   </div>
   
 }
+
+export default FavoritesEmpty;
