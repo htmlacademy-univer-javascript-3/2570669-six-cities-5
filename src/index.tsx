@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
+import offers from './mocks/offers';
 
 const Setting = {
   PlacesCount: 312,
-}as const;
+} as const;
 
 const root = document.getElementById('root');
 
 ReactDOM.createRoot(root as HTMLElement).render(
   <React.StrictMode>
-    <App placesCount={Setting.PlacesCount}/>
+    <App placesCount={Setting.PlacesCount} offers={offers} favorites={offers} />
   </React.StrictMode>
 );

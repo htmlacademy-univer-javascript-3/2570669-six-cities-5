@@ -1,12 +1,15 @@
-import Card from './Card';
 import Logo from '../Logo';
 import { Helmet } from 'react-helmet-async';
+import { OffersType } from '../../types/offer';
+import OffersList from '../offersList';
+import { Link } from 'react-router-dom';
 
 type MainScreenProps = {
-    placesCount: number;
-}
+  placesCount: number;
+  offers: OffersType[];
+};
 
-function MainScreen({placesCount}: MainScreenProps){
+function MainScreen({ placesCount, offers }: MainScreenProps) {
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -16,7 +19,9 @@ function MainScreen({placesCount}: MainScreenProps){
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo/>
+              <Link to='/' className="header__logo-link header__logo-link--active">
+                <Logo />
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
@@ -27,7 +32,7 @@ function MainScreen({placesCount}: MainScreenProps){
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                     <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
+                      Oliver.conner@gmail.com
                     </span>
                     <span className="header__favorite-count">3</span>
                   </a>
@@ -84,11 +89,13 @@ function MainScreen({placesCount}: MainScreenProps){
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+              <b className="places__found">
+                {placesCount} places to stay in Amsterdam
+              </b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex={0}>
-                Popular
+                  Popular
                   <svg className="places__sorting-arrow" width={7} height={4}>
                     <use xlinkHref="#icon-arrow-select" />
                   </svg>
@@ -98,68 +105,22 @@ function MainScreen({placesCount}: MainScreenProps){
                     className="places__option places__option--active"
                     tabIndex={0}
                   >
-                  Popular
+                    Popular
                   </li>
                   <li className="places__option" tabIndex={0}>
-                  Price: low to high
+                    Price: low to high
                   </li>
                   <li className="places__option" tabIndex={0}>
-                  Price: high to low
+                    Price: high to low
                   </li>
                   <li className="places__option" tabIndex={0}>
-                  Top rated first
+                    Top rated first
                   </li>
                 </ul>
               </form>
-              <div style={{ display: 'flex' }}>
-                <Card
-                  premium
-                  imageUrl="img/apartment-01.jpg"
-                  price="€120"
-                  bookmarked={false}
-                  rating={80}
-                  title="Beautiful & luxurious apartment at great location"
-                  type="Apartment"
-                />
-                <Card
-                  premium={false}
-                  imageUrl="img/room.jpg"
-                  price="€80"
-                  bookmarked
-                  rating={80}
-                  title="Wood and stone place"
-                  type="Room"
-                />
+              <div className="cities__places-list places__list tabs__content">
+                <OffersList offers={offers}/>
               </div>
-              <div style={{ display: 'flex' }}>
-                <Card
-                  premium={false}
-                  imageUrl="img/apartment-02.jpg"
-                  price="€132"
-                  bookmarked
-                  rating={80}
-                  title="Canal View Prinsengracht"
-                  type="Apartment"
-                />
-                <Card
-                  premium
-                  imageUrl="img/apartment-03.jpg"
-                  price="€180"
-                  bookmarked
-                  rating={100}
-                  title="Nice, cozy, warm big bed apartment"
-                  type="Apartment"
-                />
-              </div>
-              <Card
-                premium={false}
-                imageUrl="img/room.jpg"
-                price="€80"
-                bookmarked
-                rating={80}
-                title="Wood and stone place"
-                type="Room"
-              />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" />
@@ -168,7 +129,7 @@ function MainScreen({placesCount}: MainScreenProps){
           </div>
         </div>
       </main>
-    </div>);
-
+    </div>
+  );
 }
 export default MainScreen;
