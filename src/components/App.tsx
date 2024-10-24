@@ -7,16 +7,19 @@ import Offer from './pages/Offer';
 import NotFound from './NotFound';
 import AppRoute, { AuthorizationStatus } from '../const';
 import PrivateRoute from './private-route';
+import { OffersType } from '../types/offer';
 
 type AppScreenProps = {
   placesCount: number;
+  offers: OffersType[];
+  favorites: OffersType[];
 }
-function App({placesCount}: AppScreenProps){
+function App({placesCount, offers, favorites}: AppScreenProps){
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path ={AppRoute.Root} element = {<MainScreen placesCount={placesCount} />} />
+          <Route path ={AppRoute.Root} element = {<MainScreen placesCount={placesCount} offers={offers}/>} />
           <Route path={AppRoute.Login} element={<Login/>}/>
           <Route
             path={AppRoute.Favorites}
@@ -24,7 +27,7 @@ function App({placesCount}: AppScreenProps){
               <PrivateRoute
                 authorizationStatus={AuthorizationStatus.NoAuth}
               >
-                <Favorites/>
+                <Favorites favorites={favorites}/>
               </PrivateRoute>
             }
           />
