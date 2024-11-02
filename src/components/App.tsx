@@ -7,7 +7,7 @@ import Offer from './pages/Offer';
 import NotFound from './NotFound';
 import AppRoute, { AuthorizationStatus } from '../const';
 import PrivateRoute from './private-route';
-import { OffersType } from '../types/offer';
+import { OffersType } from '../types/types';
 
 type AppScreenProps = {
   placesCount: number;

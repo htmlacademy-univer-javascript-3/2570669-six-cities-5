@@ -1,4 +1,4 @@
-import { OffersType } from '../types/offer';
+import { OffersType } from '../types/types';
 
 const offers: OffersType[] = [
   {
@@ -11,6 +11,14 @@ const offers: OffersType[] = [
     title: 'Beautiful & luxurious apartment at great location',
     type: 'Apartment',
     favorite: true,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 5,
+      },
+    },
   },
   {
     id: 2,
@@ -22,6 +30,14 @@ const offers: OffersType[] = [
     title: 'Wood and stone place',
     type: 'Room',
     favorite: true,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3609553943508,
+        longitude: 4.85309666406198,
+        zoom: 5,
+      },
+    },
   },
   {
     id: 3,
@@ -33,6 +49,14 @@ const offers: OffersType[] = [
     title: 'Canal View Prinsengracht',
     type: 'Apartment',
     favorite: true,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
+        zoom: 5,
+      },
+    },
   },
   {
     id: 4,
@@ -44,6 +68,14 @@ const offers: OffersType[] = [
     title: 'Nice, cozy, warm big bed apartment',
     type: 'Apartment',
     favorite: true,
+    city: {
+      name: 'Amsterdam',
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 100,
+      },
+    },
   },
 ];
 

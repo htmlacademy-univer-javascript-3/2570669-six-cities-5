@@ -8,14 +8,12 @@ export type OffersType = {
   title: string;
   type: string;
   favorite: boolean;
+  city: {
+    name: string;
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+  };
 };
-
-// export type Review = {
-//   comment: string;
-//   date: string;
-//   id: string;
-//   rating: number;
-//   user: User;
-// };
-
-
