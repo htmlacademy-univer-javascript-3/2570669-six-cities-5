@@ -1,8 +1,9 @@
 import Logo from '../Logo';
 import { Helmet } from 'react-helmet-async';
-import { OffersType } from '../../types/offer';
+import { OffersType } from '../../types/types';
 import OffersList from '../offersList';
 import { Link } from 'react-router-dom';
+import Map from '../map';
 
 type MainScreenProps = {
   placesCount: number;
@@ -19,7 +20,10 @@ function MainScreen({ placesCount, offers }: MainScreenProps) {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to='/' className="header__logo-link header__logo-link--active">
+              <Link
+                to="/"
+                className="header__logo-link header__logo-link--active"
+              >
                 <Logo />
               </Link>
             </div>
@@ -123,7 +127,9 @@ function MainScreen({ placesCount, offers }: MainScreenProps) {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map" />
+              <section className="cities__map map">
+                <Map offers={offers} selectedOffer={offers[0]} />
+              </section>
             </div>
             <div id="App"></div>
           </div>

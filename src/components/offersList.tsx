@@ -1,5 +1,5 @@
 import Card from './pages/Card';
-import { OffersType } from '../types/offer';
+import { OffersType } from '../types/types';
 
 interface OffersListProps {
   offers: OffersType[];
