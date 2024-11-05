@@ -123,7 +123,7 @@ function MainScreen({ placesCount, offers }: MainScreenProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} listType='default'/>
+                <OffersList offers={offers} listType={'default'}/>
               </div>
             </section>
             <div className="cities__right-section">
