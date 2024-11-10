@@ -7,14 +7,15 @@ import Offer from './pages/Offer';
 import NotFound from './NotFound';
 import AppRoute, { AuthorizationStatus } from '../const';
 import PrivateRoute from './private-route';
-import { OffersType } from '../types/types';
+import { OffersType, ReviewType } from '../types/types';
 
 type AppScreenProps = {
   placesCount: number;
   offers: OffersType[];
   favorites: OffersType[];
+  reviews: ReviewType[];
 }
-function App({placesCount, offers, favorites}: AppScreenProps){
+function App({placesCount, offers, favorites, reviews}: AppScreenProps){
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -31,7 +32,7 @@ function App({placesCount, offers, favorites}: AppScreenProps){
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Offer} element={<Offer/>}/>
+          <Route path={AppRoute.Offer} element={<Offer reviews={reviews}/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>

@@ -17,3 +17,17 @@ export type OffersType = {
     };
   };
 };
+
+export type UserType = {
+  avatar: string;
+  name: string;
+  isPro: boolean;
+};
+
+export type ReviewType ={
+  id: string;
+  date: string;
+  user: UserType;
+  comment: string;
+  rating: number;
+};
