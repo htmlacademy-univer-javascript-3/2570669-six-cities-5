@@ -1,6 +1,6 @@
 import Logo from '../Logo';
 import { Helmet } from 'react-helmet-async';
-import CommentForm from '../commentForm';
+import CommentForm from '../comment-form';
 import ReviewList from '../review-list';
 import { ReviewType } from '../../types/types';
 import Map from '../map';
@@ -182,7 +182,7 @@ function Offer({reviews}: OfferProps){
             </div>
           </div>
           <section className="offer__map map">
-            <Map offers={offers.slice(0, 3)} selectedOffer={offers[0]}/>
+            <Map city={offers[0].city} points={offers.slice(0, 3)} activeOfferId={0} isMainPage={false}/>
           </section>
         </section>
         <div className="container">

@@ -1,19 +1,27 @@
-import { useState } from 'react';
 import { OffersType } from '../../types/types';
 import { Link } from 'react-router-dom';
 
 type CardProps = {
   offer: OffersType;
+  cardType: 'default' | 'near';
+  setActiveOfferId: (id: number) => void;
 };
 
-function Card({ offer }: CardProps) {
+function Card({ offer, cardType, setActiveOfferId}: CardProps) {
   const { id, title, imageUrl, type, rating, price, favorite, premium } = offer;
-  const [, setActive] = useState('');
+  const cardClass = cardType === 'default' ? 'cities__card place-card' : 'near-places__card place-card';
+  const handleMouseEnter = () => {
+    if (setActiveOfferId) {
+      setActiveOfferId(id);
+    }
+  };
+  const handleMouseLeave = () => {
+    if (setActiveOfferId) {
+      setActiveOfferId(0);
+    }
+  };
   return (
-    <article
-      className="cities__card place-card"
-      onMouseOver={() => setActive(id.toString())}
-    >
+    <article className={`${cardClass}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       {premium && (
         <div className="place-card__mark">
           <span>Premium</span>

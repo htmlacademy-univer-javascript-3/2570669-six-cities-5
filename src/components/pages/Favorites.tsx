@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { OffersType } from '../../types/types';
-import FavoritesList from '../favoritesList';
+import FavoritesList from '../favorites-list';
 import Logo from '../Logo';
 import { Helmet } from 'react-helmet-async';
 
