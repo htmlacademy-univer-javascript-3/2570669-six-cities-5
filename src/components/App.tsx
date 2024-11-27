@@ -7,16 +7,19 @@ import Offer from './pages/Offer';
 import NotFound from './Not-found';
 import AppRoute, { AuthorizationStatus } from '../const';
 import PrivateRoute from './private-route';
-import { ReviewType} from '../types/types';
+import { ReviewType, OffersType} from '../types/types';
 import { Provider } from 'react-redux';
 import { store } from '../store';
-import offers from '../mocks/offers';
 
 type AppScreenProps = {
+  placesCount: number;
+  offers: OffersType[];
+  favorites: OffersType[];
   reviews: ReviewType[];
 };
-function App({ reviews }: AppScreenProps) {
-  const favorites = offers.filter((o) => o.favorite);
+
+function App({ placesCount, offers, favorites, reviews }: AppScreenProps) {
+  const filterfavorites = favorites.filter((o) => o.favorite);
   return (
     <Provider store={store}>
       <HelmetProvider>
@@ -24,7 +27,7 @@ function App({ reviews }: AppScreenProps) {
           <Routes>
             <Route
               path={AppRoute.Root}
-              element={<MainScreen favorites={favorites} />}
+              element={<MainScreen placesCount={placesCount} favorites={filterfavorites} />}
             />
             <Route path={AppRoute.Login} element={<Login />} />
             <Route
@@ -37,7 +40,7 @@ function App({ reviews }: AppScreenProps) {
             />
             <Route
               path={AppRoute.Offer}
-              element={<Offer reviews={reviews} />}
+              element={<Offer offers={offers} reviews={reviews}/>}
             />
             <Route path="*" element={<NotFound />} />
           </Routes>

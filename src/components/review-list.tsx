@@ -2,10 +2,10 @@ import Review from './review';
 import { ReviewType } from '../types/types';
 
 type ReviewListProps = {
-    rewiews: ReviewType[];
+    reviews: ReviewType[];
 }
 
-function ReviewList({rewiews: reviewList}: ReviewListProps) {
+function ReviewList({reviews: reviewList}: ReviewListProps) {
   return (
     <ul className="reviews__list">
       {reviewList.map((review) => (

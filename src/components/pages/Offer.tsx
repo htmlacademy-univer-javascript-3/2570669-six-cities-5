@@ -2,14 +2,14 @@ import Logo from '../Logo';
 import { Helmet } from 'react-helmet-async';
 import CommentForm from '../comment-form';
 import ReviewList from '../review-list';
-import { ReviewType } from '../../types/types';
+import { OffersType, ReviewType } from '../../types/types';
 import Map from '../map';
-import offers from '../../mocks/offers';
 
 type OfferProps = {
   reviews: ReviewType[];
+  offers: OffersType[];
 }
-function Offer({reviews}: OfferProps){
+function Offer({reviews, offers}: OfferProps){
   return (
     <div className="page">
       <Helmet>
@@ -176,7 +176,7 @@ function Offer({reviews}: OfferProps){
                 <h2 className="reviews__title">
                 Reviews · <span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ReviewList rewiews={reviews}/>
+                <ReviewList reviews={reviews}/>
                 <CommentForm/>
               </section>
             </div>
