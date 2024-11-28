@@ -1,6 +1,6 @@
 import { OffersType } from '../types/types';
 
-const offers: OffersType[] = [
+export const offers: OffersType[] = [
   {
     id: 1,
     premium: true,
@@ -76,6 +76,44 @@ const offers: OffersType[] = [
         zoom: 100,
       },
     },
+  },
+  {
+    id: 5,
+    imageUrl: 'img/apartment-02.jpg',
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.85661,
+        longitude: 2.35222,
+        zoom: 10
+      }
+    },
+    title: 'Beautiful & luxurious studio at great location',
+    premium: false,
+    type: 'apartment',
+    rating: 4,
+    price: 120,
+    favorite: true,
+    bookmarked: false
+  },
+  {
+    id: 6,
+    imageUrl: 'img/apartment-03.jpg',
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 48.85661,
+        longitude: 2.123456,
+        zoom: 10
+      }
+    },
+    title: 'Beautiful & luxurious studio at great location',
+    premium: false,
+    type: 'apartment',
+    rating: 4,
+    price: 120,
+    favorite: true,
+    bookmarked: false
   },
 ];
 

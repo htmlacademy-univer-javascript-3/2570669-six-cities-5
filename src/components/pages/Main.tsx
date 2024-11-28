@@ -1,16 +1,28 @@
 import Logo from '../Logo';
 import { Helmet } from 'react-helmet-async';
 import { OffersType } from '../../types/types';
-import OffersList from '../offersList';
+import OffersList from '../offers-list';
 import { Link } from 'react-router-dom';
 import Map from '../map';
+import { Cities } from '../../city-list';
+import CitiesList from '../city-list';
+import { useState, useEffect } from 'react';
+import { useAppSelector } from '../../hooks';
 
 type MainScreenProps = {
   placesCount: number;
-  offers: OffersType[];
+  favorites: OffersType[];
 };
 
-function MainScreen({ placesCount, offers }: MainScreenProps) {
+function MainScreen({ placesCount, favorites }: MainScreenProps) {
+  const [activeOfferId, setActiveOfferId] = useState(0);
+  const offers = useAppSelector((state) => state.offers);
+  const city = useAppSelector((state) => state.city);
+  const [currentCityOffers, setCurrentCityOffers] = useState<OffersType[]>(offers);
+  useEffect(() => {
+    const filteredOffers = offers.filter((offer) => offer.city.name === city.name);
+    setCurrentCityOffers(filteredOffers);
+  }, [city, offers]);
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -38,7 +50,7 @@ function MainScreen({ placesCount, offers }: MainScreenProps) {
                     <span className="header__user-name user__name">
                       Oliver.conner@gmail.com
                     </span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favorites.length}</span>
                   </a>
                 </li>
                 <li className="header__nav-item">
@@ -55,47 +67,14 @@ function MainScreen({ placesCount, offers }: MainScreenProps) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesList cities={Cities} />
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {placesCount} places to stay in Amsterdam
-              </b>
+              <b className="places__found">{`${placesCount} places to stay in ${city.name}`}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -122,11 +101,11 @@ function MainScreen({ placesCount, offers }: MainScreenProps) {
                   </li>
                 </ul>
               </form>
-              <OffersList offers={offers} listType={'default'}/>
+              <OffersList offers={currentCityOffers} listType={'default'} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} selectedOffer={offers[0]} />
+                <Map city={city} points={currentCityOffers} activeOfferId={activeOfferId} isMainPage/>
               </section>
             </div>
             <div id="App"></div>
