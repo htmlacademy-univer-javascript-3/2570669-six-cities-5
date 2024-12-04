@@ -3,6 +3,7 @@ enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
+  MainScreen = 'MainScreen',
 }
 
 export enum AuthorizationStatus {
@@ -23,3 +24,16 @@ export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
 export default AppRoute;
+
+export const CARD_WIDTH = '260';
+export const CARD_HEIGHT = '260';
+export const BOOKMARK_ICON_WIDTH = '18';
+export const BOOKMARK_ICON_HEIGHT = '19';
+export const SORT_TYPES = {
+  0: 'Popular',
+  1: 'Price: low to high',
+  2: 'Price: high to low',
+  3: 'Top rated first',
+};
+export const SORTING_WIDTH = '7';
+export const SORTING_HEIGHT = '4';

@@ -1,4 +1,5 @@
 import { ReviewType } from '../types/types';
+import { getRating } from '../utils';
 
 type ReviewProps = {
   review: ReviewType;
@@ -6,6 +7,7 @@ type ReviewProps = {
 
 function Review({ review }: ReviewProps) {
   const { id, date, user, rating, comment } = review;
+  const width: string = getRating(rating);
   return (
     <li className="reviews__item" key={id}>
       <div className="reviews__user user">
@@ -23,7 +25,7 @@ function Review({ review }: ReviewProps) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${rating * 20}%` }} />
+            <span style={{width: width}} />
             <span className="visually-hidden">{rating}</span>
           </div>
         </div>

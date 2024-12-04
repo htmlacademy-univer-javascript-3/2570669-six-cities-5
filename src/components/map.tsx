@@ -1,15 +1,15 @@
 import { useRef, useEffect } from 'react';
-import { Icon, Marker } from 'leaflet';
+import { Icon, Marker, layerGroup } from 'leaflet';
 import useMap from '../hooks/use-Map';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../const';
 import 'leaflet/dist/leaflet.css';
 import { OffersType, City } from '../types/types';
 import { MapClasses } from '../const';
+import { useAppSelector } from '../hooks';
 
 type MapProps = {
   city: City;
   points: OffersType[];
-  activeOfferId: number;
   isMainPage: boolean;
 };
 
@@ -25,45 +25,40 @@ const currentIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-function Map({ city, points, activeOfferId, isMainPage }: MapProps) {
+function Map({ city, points, isMainPage }: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const selectedMarker = useAppSelector((state) => state.selectedMarker);
 
   useEffect(() => {
     if (map) {
-      map.eachLayer((layer) => {
-        if (layer.options.pane === 'markerPane') {
-          map.removeLayer(layer);
-        }
-      });
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+    }
+  }, [map, city]);
+
+  useEffect(() => {
+    if (map) {
+      const markers = layerGroup().addTo(map);
       points.forEach((point: OffersType) => {
         const marker = new Marker({
           lat: point.city.location.latitude,
           lng: point.city.location.longitude,
         });
         marker.setIcon(
-          activeOfferId !== undefined && point.id === activeOfferId ? currentIcon : defaultCustomIcon
+          selectedMarker !== null && point.id === selectedMarker.id ? currentIcon : defaultCustomIcon
         )
-          .addTo(map);
+          .addTo(markers);
       });
+      return () => {
+        map.removeLayer(markers);
+      };
     }
-  }, [map, points, activeOfferId]);
+  }, [map, points, selectedMarker]);
 
-  useEffect(() => {
-    if (map) {
-      map.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
-    }
-  }, [map, city]);
+  const mapClassName = isMainPage ? MapClasses.SectionPropertyMapClass : MapClasses.SectionMainMapClass;
 
   return (
-    <section
-      className={
-        isMainPage ? MapClasses.SectionPropertyMapClass : MapClasses.SectionMainMapClass
-      }
-      ref={mapRef}
-      key={city.name}
-    >
-    </section>
+    <div className={mapClassName} style={{ height: '100%' }} ref={mapRef}></div>
   );
 }
 

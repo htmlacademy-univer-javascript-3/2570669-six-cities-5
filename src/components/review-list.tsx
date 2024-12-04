@@ -5,10 +5,11 @@ type ReviewListProps = {
     reviews: ReviewType[];
 }
 
-function ReviewList({reviews: reviewList}: ReviewListProps) {
+function ReviewList({reviews}: ReviewListProps) {
+  const sortedReviews = reviews.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return (
     <ul className="reviews__list">
-      {reviewList.map((review) => (
+      {sortedReviews.map((review) => (
         <Review key={review.id} review={review}/>
       ))}
     </ul>
