@@ -1,19 +1,27 @@
 import Card from './pages/Card';
 import { OffersType } from '../types/types';
+import { useAppSelector } from '../hooks';
+import { getSorting } from '../utils';
 
 interface OffersListProps {
   offers: OffersType[];
   listType: 'default' | 'near';
-  setActiveOfferId(id:number): void;
 }
 
-function OffersList({ offers, listType, setActiveOfferId }: OffersListProps) {
+function OffersList({ offers, listType }: OffersListProps) {
+  const selectedSortType = useAppSelector((state) => state.sortType);
+  const sortedOffers = getSorting(offers, selectedSortType);
   const baseClass = 'places__list';
-  const additionalClass = listType === 'default' ? 'cities__places-list tabs__content' : 'near-places__list';
+  const listClassMapping = {
+    default: `${baseClass} cities__places-list tabs__content`,
+    near: `${baseClass} near-places__list`
+  };
+
+  const additionalClass = listClassMapping[listType];
   return (
-    <div className={`${additionalClass} ${baseClass}`}>
-      {offers.map((offer) => (
-        <Card key={offer.id} offer={offer} cardType={listType} setActiveOfferId={setActiveOfferId}/>
+    <div className={`${additionalClass}`}>
+      {sortedOffers.map((offer) => (
+        <Card key={offer.id} offer={offer} cardType={listType}/>
       ))}
     </div>
   );

@@ -1,24 +1,30 @@
-import { store } from '../store';
+import store from '../store';
 export type OffersType = {
-  id: number;
+  id: string;
   premium: boolean;
   imageUrl: string;
   price: number;
   bookmarked: boolean;
   rating: number;
+  bedrooms: number;
+  maxAdults: number;
   title: string;
+  description: string;
   type: string;
+  owner: UserType;
   favorite: boolean;
   city: City;
-  };
+};
 
 export type City = {
     name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
+    location: Location;
+}
+
+export type Location = {
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
 export type UserType = {
@@ -36,8 +42,10 @@ export type ReviewType ={
 };
 
 export type initialStateType = {
-  city: City;
+  city: string;
   offers: OffersType[];
+  sortType: string;
+  selectedMarker: {id: string} | null;
 }
 
 export type State = ReturnType<typeof store.getState>;
