@@ -40,14 +40,12 @@ function Map({ city, points, isMainPage }: MapProps) {
     if (map) {
       const markers = layerGroup().addTo(map);
       points.forEach((point: OffersType) => {
-        const marker = new Marker({
-          lat: point.city.location.latitude,
-          lng: point.city.location.longitude,
-        });
-        marker.setIcon(
+        new Marker({
+          lat: point.location.latitude,
+          lng: point.location.longitude,
+        }).setIcon(
           selectedMarker !== null && point.id === selectedMarker.id ? currentIcon : defaultCustomIcon
-        )
-          .addTo(markers);
+        ).addTo(markers);
       });
       return () => {
         map.removeLayer(markers);

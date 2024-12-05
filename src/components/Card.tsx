@@ -1,9 +1,9 @@
-import { OffersType } from '../../types/types';
+import { OffersType } from '../types/types';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
-import { currentMarker } from '../../store/action';
-import { CARD_WIDTH, CARD_HEIGHT, BOOKMARK_ICON_HEIGHT, BOOKMARK_ICON_WIDTH } from '../../const';
-import { getRating } from '../../utils';
+import { useAppDispatch } from '../hooks';
+import { currentMarker } from '../store/action';
+import { CARD_WIDTH, CARD_HEIGHT, BOOKMARK_ICON_HEIGHT, BOOKMARK_ICON_WIDTH } from '../const';
+import { getRating } from '../utils';
 
 type CardProps = {
   offer: OffersType;

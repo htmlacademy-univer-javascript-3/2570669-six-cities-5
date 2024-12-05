@@ -15,6 +15,7 @@ export type OffersType = {
   owner: UserType;
   favorite: boolean;
   city: City;
+  location: Location;
 };
 
 export type City = {
@@ -50,13 +51,16 @@ export type initialStateType = {
   selectedMarker: {id: string} | null;
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
+  email: string | null;
 }
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export type UserData = {
-  id: number;
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
   email: string;
   token: string;
 };

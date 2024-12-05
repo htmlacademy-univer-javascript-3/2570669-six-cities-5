@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import MainScreen from './pages/Main';
 import Login from './pages/Login';
 import Favorites from './pages/Favorites';
@@ -9,6 +9,8 @@ import PrivateRoute from './private-route';
 import { OffersType, ReviewType } from '../types/types';
 import { useAppSelector } from '../hooks';
 import LoadingScreen from './pages/loading';
+import HistoryRouter from './history-router';
+import { browserHistory } from '../browser-history';
 
 type AppScreenProps = {
   reviews: ReviewType[];
@@ -25,7 +27,7 @@ function App({ reviews }: AppScreenProps) {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -46,7 +48,7 @@ function App({ reviews }: AppScreenProps) {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 export default App;
