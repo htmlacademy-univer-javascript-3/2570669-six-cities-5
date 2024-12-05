@@ -1,4 +1,5 @@
 import store from '../store';
+import { AuthorizationStatus } from '../const';
 export type OffersType = {
   id: string;
   premium: boolean;
@@ -42,11 +43,25 @@ export type ReviewType ={
 };
 
 export type initialStateType = {
+  error: string | null;
   city: string;
   offers: OffersType[];
   sortType: string;
   selectedMarker: {id: string} | null;
+  authorizationStatus: AuthorizationStatus;
+  isOffersDataLoading: boolean;
 }
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export type UserData = {
+  id: number;
+  email: string;
+  token: string;
+};
+
+export type AuthData = {
+  login: string;
+  password: string;
+};
