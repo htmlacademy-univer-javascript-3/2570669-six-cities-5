@@ -21,11 +21,16 @@ export const offers: OffersType[] = [
     },
     city: {
       name: 'Amsterdam',
-      location: {
-        latitude: 52.3909553943508,
-        longitude: 4.85309666406198,
-        zoom: 5,
+      'location': {
+        'latitude': 52.3909553943508,
+        'longitude': 4.85309666406198,
+        'zoom': 5,
       },
+    },
+    'location': {
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
+      'zoom': 8
     },
   },
   {
@@ -48,11 +53,16 @@ export const offers: OffersType[] = [
     },
     city: {
       name: 'Amsterdam',
-      location: {
-        latitude: 52.3609553943508,
-        longitude: 4.85309666406198,
-        zoom: 5,
+      'location': {
+        'latitude': 52.3609553943508,
+        'longitude': 4.85309666406198,
+        'zoom': 5,
       },
+    },
+    'location': {
+      'latitude': 52.3609553943508,
+      'longitude': 4.85309666406198,
+      'zoom': 10
     },
   },
   {
@@ -75,11 +85,16 @@ export const offers: OffersType[] = [
     },
     city: {
       name: 'Amsterdam',
-      location: {
-        latitude: 52.3909553943508,
-        longitude: 4.929309666406198,
-        zoom: 5,
+      'location': {
+        'latitude': 52.3909553943508,
+        'longitude': 4.929309666406198,
+        'zoom': 5,
       },
+    },
+    'location': {
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
+      'zoom': 10
     },
   },
   {
@@ -102,11 +117,16 @@ export const offers: OffersType[] = [
     },
     city: {
       name: 'Amsterdam',
-      location: {
-        latitude: 52.3809553943508,
-        longitude: 4.939309666406198,
-        zoom: 100,
+      'location': {
+        'latitude': 52.3809553943508,
+        'longitude': 4.939309666406198,
+        'zoom': 100,
       },
+    },
+    'location': {
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
+      'zoom': 10
     },
   },
   {
@@ -114,11 +134,16 @@ export const offers: OffersType[] = [
     imageUrl: 'img/apartment-02.jpg',
     city: {
       name: 'Paris',
-      location: {
-        latitude: 48.85661,
-        longitude: 2.35222,
-        zoom: 10
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.35222,
+        'zoom': 10
       }
+    },
+    'location': {
+      'latitude': 48.85661,
+      'longitude': 2.35222,
+      'zoom': 10
     },
     title: 'Beautiful & luxurious studio at great location',
     description: 'A quiet cozy and picturesque. The building is green and from 18th century.',
@@ -141,11 +166,16 @@ export const offers: OffersType[] = [
     imageUrl: 'img/apartment-03.jpg',
     city: {
       name: 'Paris',
-      location: {
-        latitude: 48.85661,
-        longitude: 2.123456,
-        zoom: 10
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.123456,
+        'zoom': 10
       }
+    },
+    'location': {
+      'latitude': 48.85661,
+      'longitude': 2.35222,
+      'zoom': 10
     },
     title: 'Beautiful & luxurious studio at great location',
     description: 'A quiet cozy and picturesque. The building is green and from 18th century.',

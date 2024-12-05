@@ -1,4 +1,4 @@
-import Card from './pages/Card';
+import Card from './Card';
 import { OffersType } from '../types/types';
 import { useAppSelector } from '../hooks';
 import { getSorting } from '../utils';
