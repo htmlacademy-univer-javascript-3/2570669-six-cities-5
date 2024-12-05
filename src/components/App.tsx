@@ -7,8 +7,8 @@ import NotFound from './Not-found';
 import AppRoute, { AuthorizationStatus } from '../const';
 import PrivateRoute from './private-route';
 import { OffersType, ReviewType } from '../types/types';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { listFilling } from '../store/action';
+import { useAppSelector } from '../hooks';
+import LoadingScreen from './pages/loading';
 
 type AppScreenProps = {
   reviews: ReviewType[];
@@ -17,8 +17,13 @@ type AppScreenProps = {
 function App({ reviews }: AppScreenProps) {
   const offers: OffersType[] = useAppSelector((state) => state.offers);
   const filterfavorites = offers.filter((o) => o.favorite);
-  const dispatch = useAppDispatch();
-  dispatch(listFilling());
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const loadingOffers = useAppSelector((state) => state.isOffersDataLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || loadingOffers) {
+    return <LoadingScreen/>;
+  }
+
   return (
     <BrowserRouter>
       <Routes>
@@ -30,7 +35,7 @@ function App({ reviews }: AppScreenProps) {
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <Favorites favorites={filterfavorites} />
             </PrivateRoute>
           }
