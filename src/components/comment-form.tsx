@@ -1,9 +1,61 @@
-import { useState } from 'react';
+// import { useState } from 'react';
+import { ChangeEvent, useState, FormEvent } from 'react';
+import { useAppDispatch } from '../hooks/index.ts';
+import { sendCommentAction } from '../store/api-actions.ts';
 
-function CommentForm() {
-  const [text, setText] = useState('');
+type CommentFromProps = {
+  id: string;
+};
+
+type Rating = {
+  rating: string;
+  comment: string;
+}
+
+function CommentForm({ id }: CommentFromProps) {
+  const [formState, setFormState] = useState<Rating>({
+    rating: '',
+    comment: '',
+  });
+
+  const dispatch = useAppDispatch();
+
+  const handleCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      comment: e.target.value,
+    }));
+  };
+
+  const handleRatingChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      rating: e.target.value,
+    }));
+  };
+
+  const isValid = () => formState.comment.trim().length > 49 && formState.comment.trim().length < 300 && formState.rating !== '';
+
+  const handleFromSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(
+      sendCommentAction({
+        id,
+        comment: {
+          comment: formState.comment,
+          rating: Number(formState.rating),
+        },
+      })
+    );
+    setFormState((prevState) => ({
+      ...prevState,
+      rating: '',
+      comment: '',
+    }));
+  };
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" onSubmit={handleFromSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -14,6 +66,8 @@ function CommentForm() {
           defaultValue={5}
           id="5-stars"
           type="radio"
+          onChange={handleRatingChange}
+          checked={formState.rating === '5'}
         />
         <label
           htmlFor="5-stars"
@@ -30,6 +84,8 @@ function CommentForm() {
           defaultValue={4}
           id="4-stars"
           type="radio"
+          onChange={handleRatingChange}
+          checked={formState.rating === '4'}
         />
         <label
           htmlFor="4-stars"
@@ -46,6 +102,8 @@ function CommentForm() {
           defaultValue={3}
           id="3-stars"
           type="radio"
+          onChange={handleRatingChange}
+          checked={formState.rating === '3'}
         />
         <label
           htmlFor="3-stars"
@@ -62,6 +120,8 @@ function CommentForm() {
           defaultValue={2}
           id="2-stars"
           type="radio"
+          onChange={handleRatingChange}
+          checked={formState.rating === '2'}
         />
         <label
           htmlFor="2-stars"
@@ -78,6 +138,8 @@ function CommentForm() {
           defaultValue={1}
           id="1-star"
           type="radio"
+          onChange={handleRatingChange}
+          checked={formState.rating === '1'}
         />
         <label
           htmlFor="1-star"
@@ -94,8 +156,8 @@ function CommentForm() {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={(evt) => setText(evt.target.value)}
-        value={text}
+        onChange={handleCommentChange}
+        value={formState.comment}
       >
       </textarea>
       <div className="reviews__button-wrapper">
@@ -107,8 +169,7 @@ function CommentForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={undefined}
-          onClick={(evt) => evt.preventDefault()}
+          disabled={!isValid()}
         >
           Submit
         </button>

@@ -52,6 +52,11 @@ export type initialStateType = {
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
   email: string | null;
+  currentOffer: {
+    offerInfo: ExtendedOffer | null;
+    nearestOffers: OffersType[];
+    reviews: ReviewType[];
+  };
 }
 
 export type State = ReturnType<typeof store.getState>;
@@ -69,3 +74,35 @@ export type AuthData = {
   login: string;
   password: string;
 };
+
+export type Points = {
+  id: string;
+  location: Location;
+}
+
+export type CommentFormData = {
+  comment: string;
+  rating: number;
+};
+
+export type Host = {
+  name: string;
+  avatar: string;
+  isPro: boolean;
+}
+
+export type ExtendedOffer = Omit<OffersType, 'previewImage'> & {
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: Host;
+  maxAdults: number;
+  images: string[];
+}
+
+export type OfferData = {
+  offerInfo: ExtendedOffer;
+  nearestOffers: OffersType[];
+  reviews: ReviewType[];
+};
+
