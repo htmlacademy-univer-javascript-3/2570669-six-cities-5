@@ -6,10 +6,10 @@ type ReviewProps = {
 };
 
 function Review({ review }: ReviewProps) {
-  const { id, date, user, rating, comment } = review;
+  const {date, user, rating, comment } = review;
   const width: string = getRating(rating);
   return (
-    <li className="reviews__item" key={id}>
+    <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img

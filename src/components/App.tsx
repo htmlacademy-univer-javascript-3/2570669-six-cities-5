@@ -6,17 +6,13 @@ import Offer from './pages/Offer';
 import NotFound from './Not-found';
 import AppRoute, { AuthorizationStatus } from '../const';
 import PrivateRoute from './private-route';
-import { OffersType, ReviewType } from '../types/types';
+import { OffersType} from '../types/types';
 import { useAppSelector } from '../hooks';
 import LoadingScreen from './pages/loading';
 import HistoryRouter from './history-router';
 import { browserHistory } from '../browser-history';
 
-type AppScreenProps = {
-  reviews: ReviewType[];
-};
-
-function App({ reviews }: AppScreenProps) {
+function App() {
   const offers: OffersType[] = useAppSelector((state) => state.offers);
   const filterfavorites = offers.filter((o) => o.favorite);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -44,7 +40,7 @@ function App({ reviews }: AppScreenProps) {
         />
         <Route
           path={AppRoute.Offer}
-          element={<Offer reviews={reviews} favorites={filterfavorites}/>}
+          element={<Offer favorites={filterfavorites}/>}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

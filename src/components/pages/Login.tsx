@@ -1,5 +1,6 @@
 import Logo from '../Logo';
 import { FormEvent, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../store/api-actions';
@@ -44,6 +45,7 @@ function Login(){
                   type="email"
                   name="email"
                   placeholder="Email"
+                  ref={loginRef}
                   required
                 />
               </div>
@@ -54,6 +56,7 @@ function Login(){
                   type="password"
                   name="password"
                   placeholder="Password"
+                  ref={passwordRef}
                   required
                 />
               </div>
@@ -64,9 +67,9 @@ function Login(){
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link to="/" className="locations__item-link">
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

@@ -76,10 +76,9 @@ function MainScreen({ favorites }: MainScreenProps) {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={currentCity} points={currentCityOffers} isMainPage/>
+                <Map city={currentCity} points={currentCityOffers} specialCaseId={undefined} isMainPage/>
               </section>
             </div>
-            <div id="App"></div>
           </div>
         </div>
       </main>

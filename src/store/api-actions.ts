@@ -1,8 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/types';
 import { AxiosInstance } from 'axios';
-import { OffersType } from '../types/types';
-import { loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus, redirectToRoute, saveEmail } from './action';
+import { OffersType, ExtendedOffer, ReviewType, CommentFormData } from '../types/types';
+import { loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus,
+  redirectToRoute, saveEmail, loadOfferDetails, sendReview } from './action';
 import store from '.';
 import AppRoute from '../const';
 import { APIRoute, AuthorizationStatus } from '../const';
@@ -25,6 +26,42 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
     }
   }
 );
+
+export const fetchOfferDataAction = createAsyncThunk<
+  void,
+  {
+    id: string;
+  },
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+>('fetchOfferData', async ({ id }, { dispatch, extra: api }) => {
+  const { data: offerInfo } = await api.get<ExtendedOffer>(
+    `${APIRoute.Offers}/${id}`
+  );
+  const { data: nearestOffers } = await api.get<OffersType[]>(
+    `${APIRoute.Offers}/${id}/nearby`
+  );
+  const { data: reviews } = await api.get<ReviewType[]>(
+    `${APIRoute.Comments}/${id}`
+  );
+  dispatch(loadOfferDetails({ offerInfo, nearestOffers, reviews }));
+});
+export const sendCommentAction = createAsyncThunk<
+  void,
+  { comment: CommentFormData; id: string },
+  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+>('sendComment', async ({ comment, id }, { dispatch, extra: api }) => {
+  const { data: review } = await api.post<ReviewType>(`${APIRoute.Comments}/${id}`,
+    {
+      comment: comment.comment,
+      rating: comment.rating,
+    });
+  dispatch(sendReview(review));
+});
+
 export const checkAuth = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -69,6 +106,6 @@ export const logout = createAsyncThunk<void, undefined, {
 export const clearError = createAsyncThunk(
   'clearError',
   () => {
-    setTimeout(() => store.dispatch(setError(null)), 2000);
+    setTimeout(() => store.dispatch(setError(null)), 5000);
   }
 );

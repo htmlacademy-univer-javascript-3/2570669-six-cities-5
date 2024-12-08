@@ -4,12 +4,14 @@ enum AppRoute {
   Favorites = '/favorites',
   Offer = '/offer/:id',
   MainScreen = 'MainScreen',
+  Comments = '/comments'
 }
 
 export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments'
 }
 
 export enum AuthorizationStatus {
