@@ -1,5 +1,6 @@
 import { useAppDispatch } from '../hooks/index.ts';
-import { cityChange } from '../store/action.ts';
+import { changeCity } from '../store/setting-slice.ts';
+import { memo } from 'react';
 
 type CitiesListProps = {
   cities: { name: string; id: number }[];
@@ -21,7 +22,7 @@ const City = ({name, cityChangeName}: CityProps): JSX.Element => (
 function CitiesList({cities}: CitiesListProps): JSX.Element {
   const dispatch = useAppDispatch();
   const handleCityChange = (city: string) => {
-    dispatch(cityChange(city));
+    dispatch(changeCity(city));
   };
   return (
     <ul className="locations__list tabs__list">
@@ -35,4 +36,4 @@ function CitiesList({cities}: CitiesListProps): JSX.Element {
     </ul>
   );
 }
-export default CitiesList;
+export const CitiesListMemo = memo(CitiesList);

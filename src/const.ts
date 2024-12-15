@@ -45,3 +45,9 @@ export const SORT_TYPES = {
 };
 export const SORTING_WIDTH = '7';
 export const SORTING_HEIGHT = '4';
+
+export enum StateKey {
+  AppSettings = 'APPSETTINGS',
+  Offers = 'OFFERS',
+  User = 'USER',
+}

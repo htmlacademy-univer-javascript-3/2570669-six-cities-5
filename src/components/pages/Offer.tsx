@@ -2,7 +2,7 @@ import CommentForm from '../comment-form';
 import ReviewList from '../review-list';
 import { OffersType, Points } from '../../types/types';
 import Map from '../map';
-import OffersList from '../offers-list';
+import { OffersListMemo } from '../offers-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -10,18 +10,16 @@ import { getRating } from '../../utils';
 import { AuthorizationStatus } from '../../const';
 import { fetchOfferDataAction } from '../../store/api-actions';
 import Header from '../header';
+import { getAuthorizationStatus } from '../../store/user-slice-selectors';
+import { getCurrentOfferData } from '../../store/selectors';
 
 type OfferProps = {
   favorites: OffersType[];
 }
 function Offer({favorites}: OfferProps){
   const { id } = useParams<{ id: string }>();
-  const user = useAppSelector((state) => state.authorizationStatus);
-  const { selectedOffer, nearbyOffers, reviews } = useAppSelector(({ currentOffer }) => ({
-    selectedOffer: currentOffer.offerInfo,
-    nearbyOffers: currentOffer.nearestOffers,
-    reviews: currentOffer.reviews,
-  }));
+  const user = useAppSelector(getAuthorizationStatus);
+  const { selectedOffer, nearbyOffers, reviews } = useAppSelector(getCurrentOfferData);
   const points: Points[] = nearbyOffers.map((offer) => ({
     id: offer.id,
     location: offer.location,
@@ -135,7 +133,7 @@ function Offer({favorites}: OfferProps){
             <h2 className="near-places__title">
             Other places in the neighbourhood
             </h2>
-            <OffersList offers={nearbyOffers.slice(0, 3)} listType="near" />
+            <OffersListMemo offers={nearbyOffers.slice(0, 3)} listType="near" />
           </section>
         </div>
       </main>

@@ -2,8 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/types';
 import { AxiosInstance } from 'axios';
 import { OffersType, ExtendedOffer, ReviewType, CommentFormData } from '../types/types';
-import { loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus,
-  redirectToRoute, saveEmail, loadOfferDetails, sendReview } from './action';
+import { loadOffers, setOffersDataLoadingStatus,
+  loadOfferDetails, sendReview } from './offers-slice';
+import { setError } from './setting-slice';
+import { requireAuthorization, saveEmail } from './user-slice';
+import { redirectToRoute } from './action';
 import store from '.';
 import AppRoute from '../const';
 import { APIRoute, AuthorizationStatus } from '../const';
@@ -38,16 +41,16 @@ export const fetchOfferDataAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('fetchOfferData', async ({ id }, { dispatch, extra: api }) => {
-  const { data: offerInfo } = await api.get<ExtendedOffer>(
+  const { data: selectedOffer } = await api.get<ExtendedOffer>(
     `${APIRoute.Offers}/${id}`
   );
-  const { data: nearestOffers } = await api.get<OffersType[]>(
+  const { data: nearbyOffers } = await api.get<OffersType[]>(
     `${APIRoute.Offers}/${id}/nearby`
   );
   const { data: reviews } = await api.get<ReviewType[]>(
     `${APIRoute.Comments}/${id}`
   );
-  dispatch(loadOfferDetails({ offerInfo, nearestOffers, reviews }));
+  dispatch(loadOfferDetails({ selectedOffer, nearbyOffers, reviews }));
 });
 export const sendCommentAction = createAsyncThunk<
   void,

@@ -11,12 +11,15 @@ import { useAppSelector } from '../hooks';
 import LoadingScreen from './pages/loading';
 import HistoryRouter from './history-router';
 import { browserHistory } from '../browser-history';
+import { getOffers } from '../store/offers-slice-selectors';
+import { getAuthorizationStatus } from '../store/user-slice-selectors';
+import { getOffersLoadingStatus } from '../store/offers-slice-selectors';
 
 function App() {
-  const offers: OffersType[] = useAppSelector((state) => state.offers);
+  const offers: OffersType[] = useAppSelector(getOffers);
   const filterfavorites = offers.filter((o) => o.favorite);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const loadingOffers = useAppSelector((state) => state.isOffersDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const loadingOffers = useAppSelector(getOffersLoadingStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || loadingOffers) {
     return <LoadingScreen/>;

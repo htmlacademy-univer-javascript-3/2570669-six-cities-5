@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import { City, Points } from '../types/types';
 import { MapClasses } from '../const';
 import { useAppSelector } from '../hooks';
+import { getCurrentMarker } from '../store/offers-slice-selectors';
 
 type MapProps = {
   city: City;
@@ -29,11 +30,11 @@ const currentIcon = new Icon({
 function Map({ city, points, isMainPage, specialCaseId }: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const selectedMarker = useAppSelector((state) => state.selectedMarker);
+  const selectedMarker = useAppSelector(getCurrentMarker);
 
   useEffect(() => {
     if (map) {
-      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+      map.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
     }
   }, [map, city]);
 
