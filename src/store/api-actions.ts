@@ -3,22 +3,37 @@ import { AppDispatch, State } from '../types/types';
 import { AxiosInstance } from 'axios';
 import { OffersType, ExtendedOffer, ReviewType, CommentFormData } from '../types/types';
 import { loadOffers, setOffersDataLoadingStatus,
-  loadOfferDetails, sendReview } from './offers-slice';
+  loadOfferDetails, sendReview, loadFavorites, updateOffers } from './offers-slice';
 import { setError } from './setting-slice';
-import { requireAuthorization, saveEmail } from './user-slice';
+import { requireAuthorization } from './user-slice';
 import { redirectToRoute } from './action';
 import store from '.';
 import AppRoute from '../const';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { removeToken, saveToken } from '../token';
 import { UserData, AuthData } from '../types/types';
+import { saveEmail, removeEmail } from '../components/email';
+import { removeProfileImg, saveProfileImg } from '../components/profile-img';
+import { CheckFavoriteButton } from '../types/types';
+
+export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/fetchFavorites',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<OffersType[]>(`${APIRoute.Favorite}`);
+    dispatch(loadFavorites(data));
+  },
+);
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchOffers',
+  'offers/fetchOffers',
   async (_, { dispatch, extra: api }) => {
     dispatch(setOffersDataLoadingStatus(true));
     try {
@@ -40,7 +55,7 @@ export const fetchOfferDataAction = createAsyncThunk<
     state: State;
     extra: AxiosInstance;
   }
->('fetchOfferData', async ({ id }, { dispatch, extra: api }) => {
+>('offers/fetchOfferData', async ({ id }, { dispatch, extra: api }) => {
   const { data: selectedOffer } = await api.get<ExtendedOffer>(
     `${APIRoute.Offers}/${id}`
   );
@@ -56,7 +71,7 @@ export const sendCommentAction = createAsyncThunk<
   void,
   { comment: CommentFormData; id: string },
   { dispatch: AppDispatch; state: State; extra: AxiosInstance }
->('sendComment', async ({ comment, id }, { dispatch, extra: api }) => {
+>('offers/sendComment', async ({ comment, id }, { dispatch, extra: api }) => {
   const { data: review } = await api.post<ReviewType>(`${APIRoute.Comments}/${id}`,
     {
       comment: comment.comment,
@@ -87,11 +102,15 @@ export const login = createAsyncThunk<void, AuthData, {
 }>(
   'user/login',
   async ({ login: email, password }, { dispatch, extra: api }) => {
-    const response = await api.post<UserData>(APIRoute.Login, { email, password });
-    saveToken(response.data.token);
-    dispatch(saveEmail(email));
+    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(token);
+    saveEmail(email);
+    dispatch(fetchOffers());
+    dispatch(fetchFavoritesAction());
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.MainScreen));
+    const {data } = await api.get<UserData>(APIRoute.Login);
+    saveProfileImg(data.avatarUrl);
   }
 );
 export const logout = createAsyncThunk<void, undefined, {
@@ -103,12 +122,28 @@ export const logout = createAsyncThunk<void, undefined, {
   async (_, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
     removeToken();
+    removeEmail();
+    removeProfileImg();
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
 export const clearError = createAsyncThunk(
-  'clearError',
+  'other/clearError',
   () => {
     setTimeout(() => store.dispatch(setError(null)), 5000);
   }
 );
+
+export const changeFavoriteStatusAction = createAsyncThunk<void, CheckFavoriteButton, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/changeFavoriteStatus',
+  async ({status, offerId}, {extra: api, dispatch}) => {
+    const {data} = await api.post<OffersType>(`${APIRoute.Favorite}/${offerId}/${status}`);
+    dispatch(updateOffers(data));
+    dispatch(fetchFavoritesAction());
+  },
+);
+

@@ -1,6 +1,8 @@
-import { useAppDispatch } from '../hooks/index.ts';
+import { useAppDispatch, useAppSelector } from '../hooks/index.ts';
 import { changeCity } from '../store/setting-slice.ts';
 import { memo } from 'react';
+import { getCity } from '../store/setting-selectors.ts';
+
 
 type CitiesListProps = {
   cities: { name: string; id: number }[];
@@ -9,11 +11,12 @@ type CitiesListProps = {
 type CityProps = {
   name: string;
   cityChangeName: (city: string) => void;
+  isActive: boolean;
 };
 
-const City = ({name, cityChangeName}: CityProps): JSX.Element => (
+const City = ({name, cityChangeName, isActive}: CityProps): JSX.Element => (
   <li className="locations__item" onClick={() => cityChangeName(name)}>
-    <a className="locations__item-link tabs__item" href="#">
+    <a className={`locations__item-link tabs__item ${isActive ? 'tabs__item--active' : ''}`} href="#">
       <span>{name}</span>
     </a>
   </li>
@@ -21,6 +24,7 @@ const City = ({name, cityChangeName}: CityProps): JSX.Element => (
 
 function CitiesList({cities}: CitiesListProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const currentCity = useAppSelector(getCity);
   const handleCityChange = (city: string) => {
     dispatch(changeCity(city));
   };
@@ -31,6 +35,7 @@ function CitiesList({cities}: CitiesListProps): JSX.Element {
           key={city.id}
           name={city.name}
           cityChangeName={handleCityChange}
+          isActive={city.name === currentCity}
         />
       ))}
     </ul>

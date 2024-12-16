@@ -12,6 +12,7 @@ import { fetchOfferDataAction } from '../../store/api-actions';
 import Header from '../header';
 import { getAuthorizationStatus } from '../../store/user-slice-selectors';
 import { getCurrentOfferData } from '../../store/selectors';
+import AddToFavouritesButton from '../favorite-button';
 
 type OfferProps = {
   favorites: OffersType[];
@@ -61,12 +62,16 @@ function Offer({favorites}: OfferProps){
               </div>
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{selectedOffer.title}</h1>
-                <button className="offer__bookmark-button button" type="button">
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <AddToFavouritesButton
+                  id={selectedOffer.id}
+                  isFavorite={selectedOffer.favorite}
+                  iconWidth={18}
+                  iconHeight={19}
+                  buttonClass="place-card__bookmark-button"
+                  activeClass="place-card__bookmark-button--active"
+                  iconClass="place-card__bookmark-icon"
+                  buttonText="In bookmarks"
+                />
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

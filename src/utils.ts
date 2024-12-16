@@ -25,3 +25,15 @@ export const getSorting = (offers: OffersType[], sortType: string): OffersType[]
 
   return sortedOffers;
 };
+
+export const updateOffer = (offers: OffersType[], updatedOffer: OffersType): OffersType[] => {
+  const offerIndex = offers.findIndex((el) => el.id === updatedOffer.id);
+  if (offerIndex !== -1) {
+    return [
+      ...offers.slice(0, offerIndex),
+      updatedOffer,
+      ...offers.slice(offerIndex + 1),
+    ];
+  }
+  return offers;
+};

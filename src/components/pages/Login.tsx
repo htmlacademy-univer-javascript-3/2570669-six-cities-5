@@ -3,6 +3,8 @@ import { FormEvent, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/api-actions';
+import { changeCity } from '../../store/setting-slice';
+import { citiesForRandomString } from '../../const';
 
 function Login(){
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -19,6 +21,13 @@ function Login(){
       );
     }
   };
+
+  const getRandomCity = () => citiesForRandomString[Math.floor(Math.random() * citiesForRandomString.length)];
+  const newCityName = getRandomCity();
+  const handleCityClick = () => {
+    dispatch(changeCity(newCityName));
+  };
+
   return (
     < div className="page page--gray page--login">
       <header className="header">
@@ -64,8 +73,8 @@ function Login(){
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link to="/" className="locations__item-link">
-                <span>Amsterdam</span>
+              <Link to="/" className="locations__item-link" onClick={handleCityClick}>
+                <span>{newCityName}</span>
               </Link>
             </div>
           </section>
