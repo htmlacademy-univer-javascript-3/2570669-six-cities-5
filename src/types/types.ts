@@ -53,8 +53,8 @@ export type initialStateType = {
   isOffersDataLoading: boolean;
   email: string | null;
   currentOffer: {
-    offerInfo: ExtendedOffer | null;
-    nearestOffers: OffersType[];
+    selectedOffer: ExtendedOffer | null;
+    nearbyOffers: OffersType[];
     reviews: ReviewType[];
   };
 }
@@ -101,8 +101,30 @@ export type ExtendedOffer = Omit<OffersType, 'previewImage'> & {
 }
 
 export type OfferData = {
-  offerInfo: ExtendedOffer;
-  nearestOffers: OffersType[];
+  selectedOffer: ExtendedOffer;
+  nearbyOffers: OffersType[];
   reviews: ReviewType[];
 };
 
+export type UserState = {
+  authorizationStatus: AuthorizationStatus;
+  email: string | null;
+};
+export type OfferDetails = {
+  selectedOffer: ExtendedOffer | null;
+  nearbyOffers: OffersType[];
+  reviews: ReviewType[];
+};
+export type OffersState = {
+  currentOffer: OfferDetails;
+  offers: OffersType[];
+  activeMarker: {
+    id: string;
+  } | null;
+  isLoading: boolean;
+};
+export type AppState = {
+  cityName: string;
+  currentSortType: string;
+  errorMessage: string | null;
+};

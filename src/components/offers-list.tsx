@@ -2,6 +2,8 @@ import Card from './Card';
 import { OffersType } from '../types/types';
 import { useAppSelector } from '../hooks';
 import { getSorting } from '../utils';
+import { memo } from 'react';
+import { getSortType } from '../store/setting-selectors';
 
 interface OffersListProps {
   offers: OffersType[];
@@ -9,7 +11,7 @@ interface OffersListProps {
 }
 
 function OffersList({ offers, listType }: OffersListProps) {
-  const selectedSortType = useAppSelector((state) => state.sortType);
+  const selectedSortType = useAppSelector(getSortType);
   const sortedOffers = getSorting(offers, selectedSortType);
   const baseClass = 'places__list';
   const listClassMapping = {
@@ -27,4 +29,4 @@ function OffersList({ offers, listType }: OffersListProps) {
   );
 }
 
-export default OffersList;
+export const OffersListMemo = memo(OffersList);

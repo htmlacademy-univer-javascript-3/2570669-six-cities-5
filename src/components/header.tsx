@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from '../hooks/index.ts';
 import { AuthorizationStatus } from '../const.ts';
 import { logout } from '../store/api-actions.ts';
 import Logo from './Logo.tsx';
+import { getAuthorizationStatus, getEmail } from '../store/user-slice-selectors.ts';
+
 
 type HeaderProps = {
   favorites: OffersType[];
@@ -11,8 +13,8 @@ type HeaderProps = {
 
 function Header({favorites}: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const userEmail = useAppSelector((state) => state.email);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userEmail = useAppSelector(getEmail);
 
   const handleSignOut = () => {
     dispatch(logout());

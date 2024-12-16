@@ -1,7 +1,8 @@
 import { useAppSelector } from '../hooks';
+import { getError } from '../store/setting-selectors';
 
 const ErrorMessage: React.FC = () => {
-  const error = useAppSelector((state) => state.error);
+  const error = useAppSelector(getError);
   if (!error) {
     return null;
   }
