@@ -4,7 +4,9 @@ import { useAppDispatch, useAppSelector } from '../hooks/index.ts';
 import { AuthorizationStatus } from '../const.ts';
 import { logout } from '../store/api-actions.ts';
 import Logo from './Logo.tsx';
-import { getAuthorizationStatus, getEmail } from '../store/user-slice-selectors.ts';
+import { getAuthorizationStatus } from '../store/user-slice-selectors.ts';
+import { getEmail } from './email.ts';
+import { getProfileImg } from './profile-img.ts';
 
 
 type HeaderProps = {
@@ -14,7 +16,8 @@ type HeaderProps = {
 function Header({favorites}: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const userEmail = useAppSelector(getEmail);
+  const userEmail: string = getEmail();
+  const userImg: string = getProfileImg();
 
   const handleSignOut = () => {
     dispatch(logout());
@@ -31,8 +34,13 @@ function Header({favorites}: HeaderProps): JSX.Element {
             <ul className="header__nav-list">
               <li className="header__nav-item user">
                 <div className="header__nav-link header__nav-link--profile">
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
+                  {authorizationStatus === AuthorizationStatus.Auth ? (
+                    <img src={userImg} className="header__avatar-wrapper">
+                    </img>
+                  ) : (
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    </div>
+                  )}
                   {authorizationStatus === AuthorizationStatus.Auth ? (
                     <Link to="/favorites">
                       <span className="header__user-name user__name">{userEmail}</span>

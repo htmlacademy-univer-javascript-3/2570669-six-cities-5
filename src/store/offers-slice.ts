@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OffersType, OffersState, OfferData, ReviewType } from '../types/types.ts';
 import { StateKey } from '../const.ts';
+import { updateOffer } from '../utils.ts';
 
 const initialState: OffersState = {
   currentOffer: {
@@ -11,6 +12,7 @@ const initialState: OffersState = {
   offers: [],
   activeMarker: null,
   isLoading: false,
+  favorites: []
 };
 
 export const offersSlice = createSlice({
@@ -19,6 +21,9 @@ export const offersSlice = createSlice({
   reducers: {
     loadOffers(state, action: PayloadAction<OffersType[]>) {
       state.offers = action.payload;
+    },
+    updateOffers: (state, action: PayloadAction<OffersType>) => {
+      updateOffer(state.offers, action.payload);
     },
     setOffersDataLoadingStatus(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
@@ -36,6 +41,10 @@ export const offersSlice = createSlice({
     setCurrentMarker(state, action: PayloadAction<{ id: string } | null>) {
       state.activeMarker = action.payload;
     },
+    loadFavorites(state, action: PayloadAction<OffersType[]>){
+      state.favorites = action.payload;
+    },
   },
 });
-export const {loadOffers, setOffersDataLoadingStatus, loadOfferDetails, sendReview, setCurrentMarker} = offersSlice.actions;
+export const {loadOffers, setOffersDataLoadingStatus, loadOfferDetails,
+  sendReview, setCurrentMarker, updateOffers, loadFavorites} = offersSlice.actions;

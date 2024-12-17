@@ -1,5 +1,5 @@
 import store from '../store';
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, FavoriteStatus } from '../const';
 export type OffersType = {
   id: string;
   premium: boolean;
@@ -122,9 +122,15 @@ export type OffersState = {
     id: string;
   } | null;
   isLoading: boolean;
+  favorites: OffersType[];
 };
 export type AppState = {
   cityName: string;
   currentSortType: string;
   errorMessage: string | null;
+};
+
+export type CheckFavoriteButton = {
+  offerId: string;
+  status: FavoriteStatus;
 };

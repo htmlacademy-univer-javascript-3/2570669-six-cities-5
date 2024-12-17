@@ -11,7 +11,8 @@ export enum APIRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
-  Comments = '/comments'
+  Comments = '/comments',
+  Favorite = '/favorite'
 }
 
 export enum AuthorizationStatus {
@@ -51,3 +52,10 @@ export enum StateKey {
   Offers = 'OFFERS',
   User = 'USER',
 }
+
+export enum FavoriteStatus {
+  Add = 1,
+  Remove = 0,
+}
+
+export const citiesForRandomString = ['Amsterdam', 'Paris', 'Cologne', 'Brussels', 'Hamburg', 'Dusseldorf'];
