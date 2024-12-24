@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
-import MainScreen from './pages/Main';
-import Login from './pages/Login';
-import Favorites from './pages/Favorites';
-import Offer from './pages/Offer';
-import NotFound from './Not-found';
+import MainScreen from './pages/main';
+import Login from './pages/login';
+import Favorites from './pages/favorites';
+import Offer from './pages/offer';
+import NotFound from './not-found';
 import AppRoute, { AuthorizationStatus } from '../const';
 import PrivateRoute from './private-route';
 import { useAppSelector } from '../hooks';

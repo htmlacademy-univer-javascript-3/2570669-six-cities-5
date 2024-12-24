@@ -29,11 +29,7 @@ export const getSorting = (offers: OffersType[], sortType: string): OffersType[]
 export const updateOffer = (offers: OffersType[], updatedOffer: OffersType): OffersType[] => {
   const offerIndex = offers.findIndex((el) => el.id === updatedOffer.id);
   if (offerIndex !== -1) {
-    return [
-      ...offers.slice(0, offerIndex),
-      updatedOffer,
-      ...offers.slice(offerIndex + 1),
-    ];
+    return offers.map((offer, index) => index === offerIndex ? updatedOffer : offer);
   }
   return offers;
 };

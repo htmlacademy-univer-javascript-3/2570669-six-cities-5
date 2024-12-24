@@ -1,4 +1,4 @@
-import Logo from '../Logo';
+import Logo from '../logo';
 import { FormEvent, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';

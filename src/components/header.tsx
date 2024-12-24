@@ -3,7 +3,7 @@ import { OffersType } from '../types/types.ts';
 import { useAppDispatch, useAppSelector } from '../hooks/index.ts';
 import { AuthorizationStatus } from '../const.ts';
 import { logout } from '../store/api-actions.ts';
-import Logo from './Logo.tsx';
+import Logo from './logo.tsx';
 import { getAuthorizationStatus } from '../store/user-slice-selectors.ts';
 import { getEmail } from './email.ts';
 import { getProfileImg } from './profile-img.ts';
@@ -53,9 +53,9 @@ function Header({favorites}: HeaderProps): JSX.Element {
               </li>
               {authorizationStatus === AuthorizationStatus.Auth && (
                 <li className="header__nav-item">
-                  <a href="#" className="header__nav-link" onClick={handleSignOut}>
+                  <Link to="#" className="header__nav-link" onClick={handleSignOut}>
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               )}
             </ul>

@@ -38,6 +38,17 @@ export const CARD_WIDTH = '260';
 export const CARD_HEIGHT = '260';
 export const BOOKMARK_ICON_WIDTH = '18';
 export const BOOKMARK_ICON_HEIGHT = '19';
+// export const enum CardSize {
+//   Size = 260
+// }
+// export const enum Bookmark {
+//   Width = 18,
+//   Height = 19
+// }
+export enum FavoriteCard {
+  Width = 150,
+  Height = 110
+}
 export const SORT_TYPES = {
   0: 'Popular',
   1: 'Price: low to high',
