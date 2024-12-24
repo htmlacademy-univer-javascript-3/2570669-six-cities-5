@@ -11,7 +11,7 @@ type CardProps = {
 };
 
 function Card({ offer, cardType}: CardProps) {
-  const { id, title, imageUrl, type, rating, price, favorite, premium } = offer;
+  const { id, title, previewImage, type, rating, price, favorite, premium } = offer;
   const cardClass = cardType === 'default' ? 'cities__card place-card' : 'near-places__card place-card';
   const dispatch = useAppDispatch();
   return (
@@ -29,7 +29,7 @@ function Card({ offer, cardType}: CardProps) {
             <a href="#">
               <img
                 className="place-card__image"
-                src={imageUrl}
+                src={previewImage}
                 width={CARD_WIDTH}
                 height={CARD_HEIGHT}
                 alt="Place image"
