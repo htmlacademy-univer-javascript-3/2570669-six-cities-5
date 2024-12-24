@@ -3,7 +3,7 @@ import { AuthorizationStatus, FavoriteStatus } from '../const';
 export type OffersType = {
   id: string;
   premium: boolean;
-  imageUrl: string;
+  previewImage: string;
   price: number;
   bookmarked: boolean;
   rating: number;
