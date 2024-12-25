@@ -1,7 +1,7 @@
 import { OffersType } from '../../types/types';
 import Header from '../header';
 import ListFavorites from '../favorites-list';
-import FavoritesEmpty from './Favorites-empty';
+import FavoritesEmpty from './favorites-empty';
 
 type FavoritesProps = {
   favorites: OffersType[];

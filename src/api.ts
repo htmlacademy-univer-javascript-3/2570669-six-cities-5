@@ -14,6 +14,7 @@ const errorStatusMap: { [key: number]: boolean } = {
 };
 const isErrorStatus = (status: number) => !!errorStatusMap[status];
 const API_URL = 'https://14.design.htmlacademy.pro/six-cities';
+const TOKEN_NAME = 'X-Token';
 const TIMEOUT = 5000;
 export const initializeAPI = (): AxiosInstance => {
   const apiInstance = axios.create({
@@ -23,7 +24,7 @@ export const initializeAPI = (): AxiosInstance => {
   apiInstance.interceptors.request.use((config) => {
     const token = retrieveToken();
     if (token && config.headers) {
-      config.headers['X-Token'] = token;
+      config.headers[TOKEN_NAME] = token;
     }
     return config;
   });

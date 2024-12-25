@@ -7,7 +7,7 @@ import { useAppSelector } from '../../hooks';
 import Header from '../header';
 import { getOffers } from '../../store/offers-slice-selectors';
 import CityPlaces from '../city-places';
-import MainEmpty from './Main-empty';
+import MainEmpty from './main-empty';
 
 type MainScreenProps = {
   favorites: OffersType[];

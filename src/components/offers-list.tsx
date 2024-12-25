@@ -1,9 +1,9 @@
-import Card from './Card';
 import { OffersType } from '../types/types';
 import { useAppSelector } from '../hooks';
 import { getSorting } from '../utils';
 import { memo } from 'react';
 import { getSortType } from '../store/setting-selectors';
+import Card from './card';
 
 interface OffersListProps {
   offers: OffersType[];

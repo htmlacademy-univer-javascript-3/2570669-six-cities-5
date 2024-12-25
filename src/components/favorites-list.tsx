@@ -1,5 +1,8 @@
 import { OffersType } from '../types/types';
-import Card from './Card';
+import Card from './card';
+import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../hooks';
+import { changeCity } from '../store/setting-slice';
 
 type ListFavoritesProps = {
   favorites: OffersType[];
@@ -13,6 +16,12 @@ function ListFavorites({favorites}: ListFavoritesProps): JSX.Element {
     },
     {}
   );
+
+  const dispatch = useAppDispatch();
+  const handleCityClick = (city: string) => {
+    dispatch(changeCity(city));
+  };
+
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>
@@ -21,9 +30,8 @@ function ListFavorites({favorites}: ListFavoritesProps): JSX.Element {
           <li className="favorites__locations-items" key={city}>
             <div className="favorites__locations locations locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="#">
-                  <span>{city}</span>
-                </a>
+                <Link to="/"className="locations__item-link" onClick={() => handleCityClick(city)}> <span>{city}</span>
+                </Link>
               </div>
             </div>
             <div className="favorites__places">

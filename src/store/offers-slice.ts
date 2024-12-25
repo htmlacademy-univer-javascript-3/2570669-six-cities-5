@@ -21,9 +21,11 @@ export const offersSlice = createSlice({
   reducers: {
     loadOffers(state, action: PayloadAction<OffersType[]>) {
       state.offers = action.payload;
+      state.favorites = action.payload.filter((it) => it.favorite);
     },
     updateOffers: (state, action: PayloadAction<OffersType>) => {
-      updateOffer(state.offers, action.payload);
+      state.offers = updateOffer(state.offers, action.payload);
+      state.favorites = state.offers.filter((it) => it.favorite);
     },
     setOffersDataLoadingStatus(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;

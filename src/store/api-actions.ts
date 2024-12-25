@@ -37,8 +37,8 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
   async (_, { dispatch, extra: api }) => {
     dispatch(setOffersDataLoadingStatus(true));
     try {
-      const response = await api.get<OffersType[]>(APIRoute.Offers);
-      dispatch(loadOffers(response.data));
+      const { data } = await api.get<OffersType[]>(APIRoute.Offers);
+      dispatch(loadOffers(data));
     } finally {
       dispatch(setOffersDataLoadingStatus(false));
     }
@@ -109,7 +109,7 @@ export const login = createAsyncThunk<void, AuthData, {
     dispatch(fetchFavoritesAction());
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
     dispatch(redirectToRoute(AppRoute.MainScreen));
-    const {data } = await api.get<UserData>(APIRoute.Login);
+    const {data} = await api.get<UserData>(APIRoute.Login);
     saveProfileImg(data.avatarUrl);
   }
 );
@@ -127,7 +127,7 @@ export const logout = createAsyncThunk<void, undefined, {
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   }
 );
-export const clearError = createAsyncThunk(
+export const clearError = createAsyncThunk<void, undefined>(
   'other/clearError',
   () => {
     setTimeout(() => store.dispatch(setError(null)), 5000);
