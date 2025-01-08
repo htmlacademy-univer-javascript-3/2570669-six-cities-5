@@ -1,9 +1,8 @@
 enum AppRoute {
-  Root = '/',
+  Main = '/',
   Login = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
-  MainScreen = 'MainScreen',
   Comments = '/comments'
 }
 
@@ -38,13 +37,6 @@ export const CARD_WIDTH = '260';
 export const CARD_HEIGHT = '260';
 export const BOOKMARK_ICON_WIDTH = '18';
 export const BOOKMARK_ICON_HEIGHT = '19';
-// export const enum CardSize {
-//   Size = 260
-// }
-// export const enum Bookmark {
-//   Width = 18,
-//   Height = 19
-// }
 export enum FavoriteCard {
   Width = 150,
   Height = 110
@@ -70,3 +62,26 @@ export enum FavoriteStatus {
 }
 
 export const citiesForRandomString = ['Amsterdam', 'Paris', 'Cologne', 'Brussels', 'Hamburg', 'Dusseldorf'];
+
+export enum FavoritesLogo {
+  Width = 64,
+  Height = 33
+}
+
+export enum LoginLogo {
+  Width = 81,
+  Height = 41
+}
+
+export const enum CardSize {
+  Size = 260
+}
+
+export const enum Bookmark {
+  Width = 18,
+  Height = 19
+}
+
+export enum Avatar {
+  Size = 54
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './components/app.tsx';
+import App from './components/app/app.tsx';
 import { Provider } from 'react-redux';
 import store from './store';
 import { checkAuth,fetchOffers } from './store/api-actions.ts';
-import ErrorMessage from './components/error.tsx';
+import ErrorMessage from './components/error/error.tsx';
 
 store.dispatch(fetchOffers());
 store.dispatch(checkAuth());

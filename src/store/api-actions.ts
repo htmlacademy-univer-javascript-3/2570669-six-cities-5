@@ -3,17 +3,17 @@ import { AppDispatch, State } from '../types/types';
 import { AxiosInstance } from 'axios';
 import { OffersType, ExtendedOffer, ReviewType, CommentFormData } from '../types/types';
 import { loadOffers, setOffersDataLoadingStatus,
-  loadOfferDetails, sendReview, loadFavorites, updateOffers } from './offers-slice';
-import { setError } from './setting-slice';
-import { requireAuthorization } from './user-slice';
+  loadOfferDetails, sendReview, loadFavorites, updateOffers } from './offers-slice/offers-slice';
+import { setError } from './app-settings/setting-slice';
+import { requireAuthorization } from './user-slice/user-slice';
 import { redirectToRoute } from './action';
 import store from '.';
 import AppRoute from '../const';
 import { APIRoute, AuthorizationStatus } from '../const';
-import { removeToken, saveToken } from '../token';
+import { removeToken, saveToken } from '../services/token';
 import { UserData, AuthData } from '../types/types';
-import { saveEmail, removeEmail } from '../components/email';
-import { removeProfileImg, saveProfileImg } from '../components/profile-img';
+import { saveEmail, removeEmail } from '../components/email/email';
+import { removeProfileImg, saveProfileImg } from '../components/profile-img/profile-img';
 import { CheckFavoriteButton } from '../types/types';
 
 export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
@@ -56,7 +56,7 @@ export const fetchOfferDataAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >('offers/fetchOfferData', async ({ id }, { dispatch, extra: api }) => {
-  const { data: selectedOffer } = await api.get<ExtendedOffer>(
+  const { data: offerInfo } = await api.get<ExtendedOffer>(
     `${APIRoute.Offers}/${id}`
   );
   const { data: nearbyOffers } = await api.get<OffersType[]>(
@@ -65,12 +65,17 @@ export const fetchOfferDataAction = createAsyncThunk<
   const { data: reviews } = await api.get<ReviewType[]>(
     `${APIRoute.Comments}/${id}`
   );
-  dispatch(loadOfferDetails({ selectedOffer, nearbyOffers, reviews }));
+  dispatch(loadOfferDetails({ offerInfo, nearbyOffers, reviews }));
 });
+
 export const sendCommentAction = createAsyncThunk<
   void,
   { comment: CommentFormData; id: string },
-  { dispatch: AppDispatch; state: State; extra: AxiosInstance }
+  {
+    dispatch: AppDispatch;
+     state: State;
+     extra: AxiosInstance;
+  }
 >('offers/sendComment', async ({ comment, id }, { dispatch, extra: api }) => {
   const { data: review } = await api.post<ReviewType>(`${APIRoute.Comments}/${id}`,
     {
@@ -95,7 +100,7 @@ export const checkAuth = createAsyncThunk<void, undefined, {
     }
   }
 );
-export const login = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -108,7 +113,7 @@ export const login = createAsyncThunk<void, AuthData, {
     dispatch(fetchOffers());
     dispatch(fetchFavoritesAction());
     dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    dispatch(redirectToRoute(AppRoute.MainScreen));
+    dispatch(redirectToRoute(AppRoute.Main));
     const {data} = await api.get<UserData>(APIRoute.Login);
     saveProfileImg(data.avatarUrl);
   }

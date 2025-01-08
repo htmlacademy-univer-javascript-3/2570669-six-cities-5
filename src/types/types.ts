@@ -2,7 +2,7 @@ import store from '../store';
 import { AuthorizationStatus, FavoriteStatus } from '../const';
 export type OffersType = {
   id: string;
-  premium: boolean;
+  isPremium: boolean;
   previewImage: string;
   price: number;
   bookmarked: boolean;
@@ -13,7 +13,7 @@ export type OffersType = {
   description: string;
   type: string;
   owner: UserType;
-  favorite: boolean;
+  isFavorite: boolean;
   city: City;
   location: Location;
 };
@@ -30,7 +30,7 @@ export type Location = {
 }
 
 export type UserType = {
-  avatar: string;
+  avatarUrl: string;
   name: string;
   isPro: boolean;
 };
@@ -53,7 +53,7 @@ export type initialStateType = {
   isOffersDataLoading: boolean;
   email: string | null;
   currentOffer: {
-    selectedOffer: ExtendedOffer | null;
+    offerInfo: ExtendedOffer | null;
     nearbyOffers: OffersType[];
     reviews: ReviewType[];
   };
@@ -87,7 +87,7 @@ export type CommentFormData = {
 
 export type Host = {
   name: string;
-  avatar: string;
+  avatarUrl: string;
   isPro: boolean;
 }
 
@@ -101,7 +101,7 @@ export type ExtendedOffer = Omit<OffersType, 'previewImage'> & {
 }
 
 export type OfferData = {
-  selectedOffer: ExtendedOffer;
+  offerInfo: ExtendedOffer;
   nearbyOffers: OffersType[];
   reviews: ReviewType[];
 };
@@ -111,7 +111,7 @@ export type UserState = {
   email: string | null;
 };
 export type OfferDetails = {
-  selectedOffer: ExtendedOffer | null;
+  offerInfo: ExtendedOffer | null;
   nearbyOffers: OffersType[];
   reviews: ReviewType[];
 };

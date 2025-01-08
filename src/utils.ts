@@ -4,23 +4,28 @@ export function getRating(ratingValue: number): string {
   return `${ratingValue * 20}%`;
 }
 
-export const getSorting = (offers: OffersType[], sortType: string): OffersType[] => {
+export enum SortType {
+  Popular = 'Popular',
+  PriceLowToHigh = 'Price: low to high',
+  PriceHighToLow = 'Price: high to low',
+  TopRatedFirst = 'Top rated first',
+}
+
+export const getSorting = (offers: OffersType[], sortType: SortType): OffersType[] => {
   const sortedOffers = [...offers];
 
   switch (sortType) {
-    case 'Popular':
+    case SortType.Popular:
       break;
-    case 'Price: low to high':
+    case SortType.PriceLowToHigh:
       sortedOffers.sort((low, high) => low.price - high.price);
       break;
-    case 'Price: high to low':
+    case SortType.PriceHighToLow:
       sortedOffers.sort((low, high) => high.price - low.price);
       break;
-    case 'Top rated first':
+    case SortType.TopRatedFirst:
       sortedOffers.sort((low, high) => high.rating - low.rating);
       break;
-    default:
-      throw new Error(`Unknown sort type: ${sortType}`);
   }
 
   return sortedOffers;

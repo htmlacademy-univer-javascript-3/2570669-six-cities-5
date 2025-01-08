@@ -8,7 +8,7 @@ const getCurrentOffer = (state: State) => state[StateKey.Offers].currentOffer;
 
 const getOfferInfo = createSelector(
   [getCurrentOffer],
-  (currentOffer) => currentOffer.selectedOffer
+  (currentOffer) => currentOffer.offerInfo
 );
 
 const getNearestOffers = createSelector(
@@ -23,8 +23,8 @@ const getReviews = createSelector(
 
 export const getCurrentOfferData = createSelector(
   [getOfferInfo, getNearestOffers, getReviews],
-  (selectedOffer, nearbyOffers, reviews) => ({
-    selectedOffer,
+  (offerInfo, nearbyOffers, reviews) => ({
+    offerInfo,
     nearbyOffers,
     reviews,
   })
