@@ -2,7 +2,7 @@ import store from '../store';
 import { AuthorizationStatus, FavoriteStatus } from '../const';
 export type OffersType = {
   id: string;
-  IsPremium: boolean;
+  isPremium: boolean;
   previewImage: string;
   price: number;
   bookmarked: boolean;
@@ -13,7 +13,7 @@ export type OffersType = {
   description: string;
   type: string;
   owner: UserType;
-  IsFavorite: boolean;
+  isFavorite: boolean;
   city: City;
   location: Location;
 };

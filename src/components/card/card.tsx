@@ -13,7 +13,7 @@ type CardProps = {
 };
 
 function Card({ offer, cardType}: CardProps) {
-  const { id, title, previewImage, type, rating, price, IsFavorite, IsPremium } = offer;
+  const { id, title, previewImage, type, rating, price, isFavorite, isPremium } = offer;
   const cardClass = cardType === 'default' ? 'cities__card place-card' : 'near-places__card place-card';
   const dispatch = useAppDispatch();
 
@@ -22,7 +22,7 @@ function Card({ offer, cardType}: CardProps) {
       onMouseLeave={() => dispatch(setCurrentMarker(null))}
     >
       <article className={`${cardClass}`}>
-        {IsPremium && (
+        {isPremium && (
           <div className="place-card__mark">
             <span>Premium</span>
           </div>
@@ -40,7 +40,7 @@ function Card({ offer, cardType}: CardProps) {
             </div>
             <FavoriteButton
               id={id}
-              IsFavorite={IsFavorite}
+              IsFavorite={isFavorite}
               iconWidth={Bookmark.Width}
               iconHeight={Bookmark.Height}
               buttonClass="place-card__bookmark-button"

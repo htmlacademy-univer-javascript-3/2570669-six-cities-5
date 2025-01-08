@@ -57,7 +57,7 @@ function Offer({favorites}: OfferProps){
           <div className="offer__container container">
             <div className="offer__wrapper">
               <div className="offer__mark">
-                {offerInfo.IsPremium && (
+                {offerInfo.isPremium && (
                   <div className="offer__mark">
                     <span>Premium</span>
                   </div>
@@ -67,7 +67,7 @@ function Offer({favorites}: OfferProps){
                 <h1 className="offer__name">{offerInfo.title}</h1>
                 <AddToFavouritesButton
                   id={offerInfo.id}
-                  IsFavorite={offerInfo.IsFavorite}
+                  IsFavorite={offerInfo.isFavorite}
                   iconWidth={18}
                   iconHeight={19}
                   buttonClass="place-card__bookmark-button"
